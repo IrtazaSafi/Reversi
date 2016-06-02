@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<title>Reversi</title>
+		<link rel="stylesheet" type="text/css" href="styling.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src = "client.js"></script>
+
+	</head>
+
+<body bgcolor = "#A9A9A9">
+
+	<h1> Welcome to reversi </h1>
+
+	<p> To play a game, either create a new game with your unique id and then ask someone 
+		to join that game or join an existing game if you have an id</p>
+
+	<div>
+
+		<h1 id = "turn"> Turn : N/A </h1>
+		<h3 id = "player"> Your color : N/A </h3>
+		<h4> Black Score</h4> <h4 id = "blackScore">0</h4>
+		<h4> White Score</h4> <h4 id = "whiteScore">0</h4>
+	</div>
+
+
+	<div>
+			<table id="gameBoard" align="center" valign="center">
+				<tr>
+					<th height = "50" width = "50" ></th>
+					<th height = "50" width = "50">0</th>
+					<th height = "50" width = "50">1</th>
+					<th height = "50" width = "50">2</th>
+					<th height = "50" width = "50">3</th>
+					<th height = "50" width = "50">4</th>
+					<th height = "50" width = "50">5</th>
+					<th height = "50" width = "50">6</th>
+					<th height = "50" width = "50">7</th>
+					
+				</tr>
+
+
+				<tr>
+					<th height = "50" width = "50">0</th>
+					<td id="00" bgcolor="lightgrey" height = "50" width = "50" align="center" valign="center"></td>
+					<td id="01" height = "50" width = "50"></td>
+					<td id="02" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="03" height = "50" width = "50"></td>
+					<td id="04" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="05" height = "50" width = "50"></td>
+					<td id="06" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="07" height = "50" width = "50"></td>
+
+				</tr>
+
+
+				<tr>
+					<th height = "50" width = "50">1</th>
+					<td id="10" height = "50" width = "50"></td>
+					<td id="11" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="12"></td>
+					<td id="13" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="14"></td>
+					<td id="15" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="16"></td>
+					<td id="17" bgcolor="lightgrey" height = "50" width = "50"></td>
+
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">2</th>
+					<td id="20" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="21"></td>
+					<td id="22" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="23"></td>
+					<td id="24" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="25"></td>
+					<td id="26" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="27"></td>
+
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">3</th>
+					<td id="30"></td>
+					<td id="31" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="32"></td>
+					<td id="33" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="34"></td>
+					<td id="35" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="36"></td>
+					<td id="37" bgcolor="lightgrey" height = "50" width = "50"></td>
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">4</th>
+					<td id="40" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="41"></td>
+					<td id="42" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="43"></td>
+					<td id="44" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="45"></td>
+					<td id="46" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="47"></td>
+
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">5</th>
+					<td id="50"></td>
+					<td id="51" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="52"></td>
+					<td id="53" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="54"></td>
+					<td id="55" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="56"></td>
+					<td id="57" bgcolor="lightgrey" height = "50" width = "50"></td>
+
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">6</th>
+					<td id="60" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="61"></td>
+					<td id="62" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="63"></td>
+					<td id="64" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="65"></td>
+					<td id="66" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="67"></td>
+
+				</tr>
+
+				<tr>
+					<th height = "50" width = "50">7</th>
+					<td id="70"></td>
+					<td id="71" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="72" ></td>
+					<td id="73" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="74"></td>
+					<td id="75" bgcolor="lightgrey" height = "50" width = "50"></td>
+					<td id="76"></td>
+					<td id="77" bgcolor="lightgrey" height = "50" width = "50"></td>
+				</tr>
+
+
+
+
+			</table>
+
+
+
+		
+	</div>
+
+	<div class="modal"><!-- Place at bottom of page --></div>
+
+	<body>
+
+
+</html>
